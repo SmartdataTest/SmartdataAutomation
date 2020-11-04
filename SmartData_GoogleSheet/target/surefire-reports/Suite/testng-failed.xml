@@ -7,8 +7,7 @@
         <methods>
           <include name="Driver_Int"/>
           <include name="Driver_Close"/>
-          <include name="smartData_AboutUs"/>
-          <include name="SmartData_ContactUs"/>
+          <include name="SmartData_Footer"/>
         </methods>
       </class> <!-- SmartData_Appilcation.SmartData_App -->
     </classes>

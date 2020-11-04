@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="2" passed="2" failed="0" skipped="0">
+<testng-results ignored="0" total="7" passed="7" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2020-10-21T07:01:21Z" name="Suite" finished-at="2020-10-21T07:02:42Z" duration-ms="81074">
+  <suite started-at="2020-11-04T04:45:26Z" name="Suite" finished-at="2020-11-04T05:00:00Z" duration-ms="874015">
     <groups>
     </groups>
-    <test started-at="2020-10-21T07:01:21Z" name="Test" finished-at="2020-10-21T07:02:42Z" duration-ms="81074">
+    <test started-at="2020-11-04T04:45:26Z" name="Test" finished-at="2020-11-04T05:00:00Z" duration-ms="874015">
       <class name="SmartData_Appilcation.SmartData_App">
-        <test-method is-config="true" signature="Driver_Int()[pri:0, instance:SmartData_Appilcation.SmartData_App@68034211]" started-at="2020-10-21T07:01:16Z" name="Driver_Int" finished-at="2020-10-21T07:01:21Z" duration-ms="5412" status="PASS">
+        <test-method is-config="true" signature="Driver_Int()[pri:0, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:45:21Z" name="Driver_Int" finished-at="2020-11-04T04:45:26Z" duration-ms="5595" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Driver_Int -->
-        <test-method signature="SmartData_ContactUs()[pri:0, instance:SmartData_Appilcation.SmartData_App@68034211]" started-at="2020-10-21T07:01:21Z" name="SmartData_ContactUs" finished-at="2020-10-21T07:02:34Z" duration-ms="73129" status="PASS">
+        <test-method signature="SmartData_Whoweare()[pri:0, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:45:26Z" name="SmartData_Whoweare" finished-at="2020-11-04T04:47:06Z" duration-ms="99491" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- SmartData_ContactUs -->
-        <test-method signature="smartData_AboutUs()[pri:1, instance:SmartData_Appilcation.SmartData_App@68034211]" started-at="2020-10-21T07:02:34Z" name="smartData_AboutUs" finished-at="2020-10-21T07:02:42Z" duration-ms="7935" status="PASS">
+        </test-method> <!-- SmartData_Whoweare -->
+        <test-method signature="WhatWeDo()[pri:1, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:47:06Z" name="WhatWeDo" finished-at="2020-11-04T04:51:48Z" duration-ms="282213" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- WhatWeDo -->
+        <test-method signature="SmartData_WorkHere()[pri:2, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:51:48Z" name="SmartData_WorkHere" finished-at="2020-11-04T04:52:18Z" duration-ms="30283" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SmartData_WorkHere -->
+        <test-method signature="smartData_lunchLearn()[pri:3, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:52:18Z" name="smartData_lunchLearn" finished-at="2020-11-04T04:53:22Z" duration-ms="63101" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- smartData_lunchLearn -->
+        <test-method signature="smartData_AboutUs()[pri:4, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:53:22Z" name="smartData_AboutUs" finished-at="2020-11-04T04:55:03Z" duration-ms="101393" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- smartData_AboutUs -->
-        <test-method is-config="true" signature="Driver_Close()[pri:0, instance:SmartData_Appilcation.SmartData_App@68034211]" started-at="2020-10-21T07:02:42Z" name="Driver_Close" finished-at="2020-10-21T07:02:43Z" duration-ms="610" status="PASS">
+        <test-method signature="SmartData_ContactUs()[pri:5, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:55:03Z" name="SmartData_ContactUs" finished-at="2020-11-04T04:55:51Z" duration-ms="47979" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SmartData_ContactUs -->
+        <test-method signature="SmartData_Footer()[pri:6, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T04:55:51Z" name="SmartData_Footer" finished-at="2020-11-04T05:00:00Z" duration-ms="249525" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- SmartData_Footer -->
+        <test-method is-config="true" signature="Driver_Close()[pri:0, instance:SmartData_Appilcation.SmartData_App@14fa86ae]" started-at="2020-11-04T05:00:00Z" name="Driver_Close" finished-at="2020-11-04T05:00:01Z" duration-ms="930" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Driver_Close -->

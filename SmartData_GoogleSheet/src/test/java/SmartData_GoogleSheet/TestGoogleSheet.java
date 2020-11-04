@@ -71,8 +71,26 @@ public class TestGoogleSheet {
 		List<List<Object>> values = response.getValues();
 			return values;
 	}
-
+	public static List<List<Object>> LunchLearn() throws GeneralSecurityException,IOException{
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		final String spreadsheetId = "1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo";
+		final String range= "Lunch&Learn!A2:C";
+		
+		Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT)).setApplicationName(APPLICATION_NAME).build();
+		ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
+		List<List<Object>> values = response.getValues();
+			return values;
+	}
 	
-	
+	public static List<List<Object>> AboutUs() throws GeneralSecurityException,IOException{
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		final String spreadsheetId = "1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo";
+		final String range= "AboutUs!A2:D";
+		
+		Sheets service = new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT)).setApplicationName(APPLICATION_NAME).build();
+		ValueRange response = service.spreadsheets().values().get(spreadsheetId, range).execute();
+		List<List<Object>> values = response.getValues();
+			return values;
+	}
 }
 	
