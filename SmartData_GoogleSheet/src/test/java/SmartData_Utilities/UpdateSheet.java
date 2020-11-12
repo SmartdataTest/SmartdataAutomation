@@ -32,11 +32,11 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 public class UpdateSheet {
 	private static final String APPLICATION_NAME = "SmartTicketUpgrade";
 	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	private static final String TOKENS_DIRECTORY_PATH = "D:\\Credentials\\tokens";
+	private static final String TOKENS_DIRECTORY_PATH = "C:\\Credentials\\tokens";
 	private static final List<String> SCOPES = Arrays.asList(SheetsScopes.SPREADSHEETS, SheetsScopes.DRIVE);
 	private static final String CREDENTIALS_FILE_PATH = "/client_secret.json ";
 	private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-		File initialFile = new File("D:\\Credentials\\client_secret.json");
+		File initialFile = new File("C:\\Credentials\\client_secret.json");
 	    InputStream in = new FileInputStream(initialFile);
 		if (in == null) {
 			throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);

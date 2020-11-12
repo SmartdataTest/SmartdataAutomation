@@ -5,12 +5,15 @@ import org.testng.annotations.Test;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import com.google.api.services.sheets.v4.model.ValueRange;
 
 import org.testng.annotations.Test;
 
 
 import Object_Repository.SmartData_Object;
+import SmartData_GoogleSheet.SheetsExample;
 import SmartData_GoogleSheet.TestGoogleSheet;
+import SmartData_GoogleSheet.WriteValues;
 import SmartData_Utilities.TakeScreenshot;
 
 import org.testng.annotations.Test;
@@ -38,25 +41,75 @@ public class SmartData_App extends SmartData_Object
 	ExtentReports extent;
 	 ExtentTest logger;
 	 ExtentHtmlReporter htmlReporter;
-	 String htmlReportPath = "D:\\Selenium_Automation\\Smart_ticket\\SmartTicket_GoogleSheet\\test-output\\testReport.html";
+	 String htmlReportPath = "C:\\Users\\Vinod\\git\\SmartdataAutomation\\SmartData_GoogleSheet\\test-output\\testReport.html";
 	 TakeScreenshot TS = new TakeScreenshot();
 	 String PageName =null;
 	 String PageURL = null;
 	 ArrayList tabs;
+	 SheetsExample updateValues;
+	 List<List<Object>> URL = new ArrayList<>();
+	 List<Object> CurrentURL = new ArrayList<>();
+	
+	 List<List<Object>> Pass = new ArrayList<>();
+	 List<Object> PassStatus = new ArrayList<>();
+	 
+	 List<List<Object>> Fail = new ArrayList<>();
+	 List<Object> FailStatus = new ArrayList<>();
 	@BeforeSuite
 	public void Driver_Int()
 	{
 		 htmlReporter = new ExtentHtmlReporter(htmlReportPath);
 	     extent = new ExtentReports();
 	     extent.attachReporter(htmlReporter);
-		 System.setProperty("webdriver.chrome.driver", "D:\\Selenium_Automation\\Smart_ticket\\smartticketupgrade\\chromedriver.exe");
+		 System.setProperty("webdriver.chrome.driver", "C:\\Users\\Vinod\\Softwares\\chromedriver.exe");
 		 driver = new ChromeDriver();
-		 driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+		 driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
 		 driver.manage().window().maximize();
+		  // Pass Status Message
+		 PassStatus.add("Pass");
+		 Pass.add(PassStatus);
+		 FailStatus.add("Fail");
+		 Fail.add(FailStatus);
 	}
-	
+	public void URL_Pass_Status_Update(String PageURL1,String URLRowValue,String URLCellValue,String StatuRow,String StatuCell) throws IOException, GeneralSecurityException
+	{
+		String URLUpdate = URLRowValue+":"+URLCellValue;
+		String StatusUpdate=StatuRow+":"+StatuCell;
+		//System.out.println(URLUpdate);
+		//System.out.println(StatusUpdate);
+		
+		CurrentURL.add(PageURL1);
+	    URL.add(CurrentURL);
+	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+URLUpdate, URL);
+	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+StatusUpdate, Pass);
+	    CurrentURL.remove(PageURL1);
+	    URL.remove(CurrentURL);
+	    //System.out.println(CurrentURL.isEmpty());
+	    //System.out.println(URL.isEmpty());
+	    
+	}
+	public void URL_Fail_Status_Update(String PageURL1,String URLRowValue,String URLCellValue,String StatuRow,String StatuCell) throws IOException, GeneralSecurityException
+	{
+		String URLUpdate = URLRowValue+":"+URLCellValue;
+		String StatusUpdate=StatuRow+":"+StatuCell;
+		//System.out.println(URLUpdate);
+		//System.out.println(StatusUpdate);
+		
+		CurrentURL.add(PageURL1);
+	    URL.add(CurrentURL);
+	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+URLUpdate, URL);
+	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+StatusUpdate,Fail);
+	    CurrentURL.remove(PageURL1);
+	    URL.remove(CurrentURL);
+	    //System.out.println(CurrentURL.isEmpty());
+	    //System.out.println(URL.isEmpty());
+	    
+	}
 	@Test(priority=0)
-	public void SmartData_Whoweare()throws Exception{
+	public void SmartData_Whoweare()throws Exception
+	{
+		//ValueRange requestBody = new ValueRange();
+	    //TestGoogleSheet.RepeateCellRequest();
 		driver.get(url); 
 		Thread.sleep(2000);
 		driver.findElement(MainMenu).click();
@@ -64,26 +117,43 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(WhoWeAre).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(WhoWeAreURL)) {
+        if (PageURL.contains(WhoWeAreURL)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B2","B", "C2", "C");
+    		//TestGoogleSheet.RepeateCellRequest();
         	PageName=driver.findElement(WhoWeAreEle).getText();
-        	if(PageName.contains(WhoWeAreText)) {
+        	if(PageName.contains(WhoWeAreText)) 
+        	{
         		driver.findElement(Lets_Talk).click();
         		Thread.sleep(2000);
         		PageURL =driver.getCurrentUrl();
-		        if (PageURL.contains(contactus_url)) {
+		        if (PageURL.contains(contactus_url)) 
+		        {
+		        	URL_Pass_Status_Update(PageURL,"B3","B", "C3", "C");
 		        	PageName=driver.findElement(ContactusEle).getText();
-		        	if(PageName.contains(Contact_Us)) {
+		        	if(PageName.contains(Contact_Us)) 
+		        	{
+		        		
 		        		driver.navigate().back();
 		        		Thread.sleep(2000);
 		        	}
+		        }
+		        else
+		        {
+		        	URL_Fail_Status_Update(PageURL,"B3","C", "C3", "C");
 		        }
         		driver.findElement(JobOpening).click();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B2","C", "C2", "C");
+        }
 	}
 	@Test(priority=1)
-	public void WhatWeDo()throws Exception{
+	public void WhatWeDo()throws Exception
+	{	    
 		driver.findElement(MainMenu).click();
 		Thread.sleep(2000);
 		driver.findElement(Service).click();
@@ -91,9 +161,12 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(DigitalTransformation).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(DigitalTransformation_url)) {
+        if (PageURL.contains(DigitalTransformation_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B4","B", "C4", "C");
         	PageName=driver.findElement(DigitalTransformationEle).getText();
-        	if(PageName.contains(DigitalTransformation_Text)) {
+        	if(PageName.contains(DigitalTransformation_Text)) 
+        	{
         		driver.findElement(EnterpriseApp).click();
         		Thread.sleep(2000);
         		driver.navigate().back();
@@ -110,6 +183,10 @@ public class SmartData_App extends SmartData_Object
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B4","C", "C4", "C");
+        }
         driver.findElement(MainMenu).click();
 		Thread.sleep(2000);
 		driver.findElement(Service).click();
@@ -117,11 +194,18 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(Enterprise).click();
 		Thread.sleep(2000);
 		 PageURL =driver.getCurrentUrl();
-	        if (PageURL.contains(Enterprise_url)) {
+	        if (PageURL.contains(Enterprise_url))
+	        {
+	        	URL_Pass_Status_Update(PageURL,"B5","B", "C5", "C");
 	        	PageName=driver.findElement(EnterpriseEle).getText();
-	        	if(PageName.contains(Enterprise_Text)) {
+	        	if(PageName.contains(Enterprise_Text)) 
+	        	{
 	        		System.out.println("Enterprise Application Development");
 	        	}
+	        }
+	        else
+	        {
+	        	URL_Fail_Status_Update(PageURL,"B5","C", "C5", "C");
 	        }
 	        driver.findElement(MainMenu).click();
 			Thread.sleep(2000);
@@ -130,7 +214,9 @@ public class SmartData_App extends SmartData_Object
 			driver.findElement(SalesforceDev).click();
 			Thread.sleep(2000);
 			PageURL =driver.getCurrentUrl();
-	        if (PageURL.contains(SalesforeDev_url)) {
+	        if (PageURL.contains(SalesforeDev_url)) 
+	        {
+	        	URL_Pass_Status_Update(PageURL,"B6","B", "C6", "C");
 	        	PageName=driver.findElement(SalesforceDevEle).getText();
 	        	if(PageName.contains(SalesforceDev_Text)) {
 	        		driver.findElement(SalesforceImplementation).click();
@@ -139,34 +225,57 @@ public class SmartData_App extends SmartData_Object
 	        		Thread.sleep(2000);
 	        	}
 	        }
+	        else
+	        {
+	        	URL_Fail_Status_Update(PageURL,"B6","C", "C6", "C");
+	        }
 	        		driver.findElement(Salesforcecertification).click();
 	        		Thread.sleep(2000);
 	        		PageURL =driver.getCurrentUrl();
-	    	        if (PageURL.contains(Salesforcecertification_url)) {
+	    	        if (PageURL.contains(Salesforcecertification_url))
+	    	        {
+	    	        	URL_Pass_Status_Update(PageURL,"B7","B", "C7", "C");
 	    	        	PageName=driver.findElement(SalesforcecertificationEle).getText();
 	    	        	if(PageName.contains(Salesforcecertification_Text)) {
 	    	        		driver.navigate().back();
 	    	        		Thread.sleep(2000);
 	    	        	}
+	    	        	URL_Pass_Status_Update(PageURL,"B7","B", "C7", "C");
+	    	        }
+	    	        else
+	    	        {
+	    	        	URL_Fail_Status_Update(PageURL,"B7","C", "C7", "C");
 	    	        }
 	        		driver.findElement(Salesforce_sales_Cloud).click();
 	        		Thread.sleep(2000);
 	        		PageURL =driver.getCurrentUrl();
-	    	        if (PageURL.contains(SalesforceCloud_url)) {
+	    	        if (PageURL.contains(SalesforceCloud_url))
+	    	        {
+	    	        	URL_Pass_Status_Update(PageURL,"B8","B", "C8", "C");
 	    	        	PageName=driver.findElement(SalesforceCloudEle).getText();
 	    	        	if(PageName.contains(SalesforceCloud_Text)) {
 	    	        		driver.navigate().back();
 	    	        		Thread.sleep(2000);
 	    	        	}
 	    	        }
+	    	        else
+	    	        {
+	    	        	URL_Fail_Status_Update(PageURL,"B8","C", "C8", "C");
+	    	        }
 	    	        driver.findElement(Salesforce_ReadMore).click();
 	    	        Thread.sleep(2000);
 	    	        PageURL =driver.getCurrentUrl();
-	    	        if (PageURL.contains(Salesforce_ReadMore_url)) {
+	    	        if (PageURL.contains(Salesforce_ReadMore_url))
+	    	        {
+	    	        	URL_Pass_Status_Update(PageURL,"B9","B", "C9", "C");
 	    	        	PageName=driver.findElement(Salesforce_ReadMoreEle).getText();
 	    	        	if(PageName.contains(Salesforce_ReadMore_Text)) {
 	    	        		System.out.println("SalesForce Development");
 	    	        	}
+	    	        }
+	    	        else
+	    	        {
+	    	        	URL_Fail_Status_Update(PageURL,"B9","C", "C9", "C");
 	    	        }
 	    	        driver.findElement(MainMenu).click();
 	    			Thread.sleep(2000);
@@ -175,9 +284,12 @@ public class SmartData_App extends SmartData_Object
 	    	        driver.findElement(Staffing).click();
 	    	        Thread.sleep(2000);
 	    	        PageURL =driver.getCurrentUrl();
-	    	        if (PageURL.contains(Staffing_url)) {
+	    	        if (PageURL.contains(Staffing_url)) 
+	    	        {
+	    	        	URL_Pass_Status_Update(PageURL,"B10","B", "C10", "C");
 	    	        	PageName=driver.findElement(StaffingEle).getText();
-	    	        	if(PageName.contains(Staffing_Text)) {
+	    	        	if(PageName.contains(Staffing_Text)) 
+	    	        	{
 	    	        		driver.findElement(letstalk).click();
 	    	        		Thread.sleep(2000);
 	    	        		driver.navigate().back();
@@ -186,6 +298,10 @@ public class SmartData_App extends SmartData_Object
 	    	        		Thread.sleep(2000);
 	    	        	}
 	    	        }
+	    	        else
+	    	        {
+	    	        	URL_Fail_Status_Update(PageURL,"B10","C", "C10", "C");
+	    	        }
 	    	        driver.findElement(MainMenu).click();
 	    			Thread.sleep(2000);
 	    			driver.findElement(Service).click();
@@ -193,11 +309,17 @@ public class SmartData_App extends SmartData_Object
 	    			driver.findElement(AgileConsulting).click();
 	    			Thread.sleep(2000);
 	    			 PageURL =driver.getCurrentUrl();
-		    	        if (PageURL.contains(AgileConsulting_url)) {
+		    	        if (PageURL.contains(AgileConsulting_url)) 
+		    	        {
+		    	        	URL_Pass_Status_Update(PageURL,"B11","B", "C11", "C");
 		    	        	PageName=driver.findElement(AgileConsultingEle).getText();
 		    	        	if(PageName.contains(AgileConsulting_Text)) {
 		    	        		System.out.println("Dev-Ops/Agile Consulting");
 		    	        	}
+		    	        }
+		    	        else
+		    	        {
+		    	        	URL_Fail_Status_Update(PageURL,"B11","C", "C11", "C");
 		    	        }
 		    	        driver.findElement(MainMenu).click();
 		    			Thread.sleep(2000);
@@ -206,11 +328,17 @@ public class SmartData_App extends SmartData_Object
 		    			driver.findElement(DataScience).click();
 		    			Thread.sleep(2000);
 		    			 PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(DataScience_url)) {
+			    	        if (PageURL.contains(DataScience_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B12","B", "C12", "C");
 			    	        	PageName=driver.findElement(DataScienceEle).getText();
 			    	        	if(PageName.contains(DataScience_Text)) {
 			    	        		System.out.println("Data Science ");
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B12","C", "C12", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
@@ -219,12 +347,19 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(Automation).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(Automation_url)) {
+			    	        if (PageURL.contains(Automation_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B13","B", "C13", "C");	
 			    	        	PageName=driver.findElement(AutomationEle).getText();
 			    	        	if(PageName.contains(Automation_Text)) {
 			    	        		System.out.println("Automation ");
 			    	        	}
 			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B13","C", "C13", "C");
+			    	        }
+			    	        
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
 			    			driver.findElement(Service).click();
@@ -232,7 +367,9 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(OffShore).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(OffShore_url)) {
+			    	        if (PageURL.contains(OffShore_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B14","B", "C14", "C");
 			    	        	PageName=driver.findElement(OffShoreEle).getText();
 			    	        	if(PageName.contains(OffShore_Text)) {
 			    	        		driver.findElement(talk_with_an_expert).click();
@@ -249,6 +386,11 @@ public class SmartData_App extends SmartData_Object
 			    	        		Thread.sleep(2000);
 			    	        	}
 			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B14","C", "C14", "C");
+			    	        }
+			    	        
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
 			    			driver.findElement(Industries).click();
@@ -256,7 +398,9 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(HealthCare).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(HealthCare_url)) {
+			    	        if (PageURL.contains(HealthCare_url))
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B15","B", "C15", "C");
 			    	        	PageName=driver.findElement(HealthCareEle).getText();
 			    	        	if(PageName.contains(HelathCare_Text)) {
 			    	        		driver.findElement(HealthCare_viewmore).click();
@@ -265,6 +409,11 @@ public class SmartData_App extends SmartData_Object
 			    	        		Thread.sleep(2000);
 			    	        	}
 			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B15","C", "C15", "C");
+			    	        }
+			    	        
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
 			    			driver.findElement(Industries).click();
@@ -272,12 +421,19 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(Retail).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(Retail_url)) {
+			    	        if (PageURL.contains(Retail_url))
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B16","B", "C16", "C");
 			    	        	PageName=driver.findElement(RetailEle).getText();
 			    	        	if(PageName.contains(Retail_Text)) {
 			    	        		System.out.println("Retail");
 			    	        	}
 			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B16","C", "C16", "C");
+			    	        }
+			    	        
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
 			    			driver.findElement(Industries).click();
@@ -285,11 +441,17 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(Manufacturing).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(Manufacturing_url)) {
+			    	        if (PageURL.contains(Manufacturing_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B17","B", "C17", "C");
 			    	        	PageName=driver.findElement(ManufacturingEle).getText();
 			    	        	if(PageName.contains(Manufacturing_Text)) {
 			    	        		System.out.println("Manufacturing & Logistics");
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B17","C", "C17", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
@@ -298,11 +460,17 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(Insurance).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(Insurance_url)) {
+			    	        if (PageURL.contains(Insurance_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B18","B", "C18", "C");
 			    	        	PageName=driver.findElement(InsuranceEle).getText();
 			    	        	if(PageName.contains(Insurance_Text)) {
 			    	        		System.out.println("Insurance & Banking");
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B18","C", "C18", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
@@ -311,11 +479,17 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(BeyondPod).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(BeyondPod_url)) {
+			    	        if (PageURL.contains(BeyondPod_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B19","B", "C19", "C");
 			    	        	PageName=driver.findElement(BeyondPodEle).getText();
 			    	        	if(PageName.contains(BeyondPod_Text)) {
 			    	        		System.out.println("BeyondPod");
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B19","C", "C19", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
@@ -324,12 +498,18 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(SBN).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(SBN_url)) {
+			    	        if (PageURL.contains(SBN_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B20","B", "C20", "C");
 			    	        	PageName=driver.findElement(SBNEle).getText();
 			    	        	if(PageName.contains(SBN_Text)) {
 			    	        		driver.findElement(SBN_ContactUs).click();
 			    	        		Thread.sleep(2000);
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B20","C", "C20", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
 			    			Thread.sleep(2000);
@@ -338,11 +518,17 @@ public class SmartData_App extends SmartData_Object
 			    			driver.findElement(SmartTicket).click();
 			    			Thread.sleep(2000);
 			    			PageURL =driver.getCurrentUrl();
-			    	        if (PageURL.contains(SmartTicket_url)) {
+			    	        if (PageURL.contains(SmartTicket_url)) 
+			    	        {
+			    	        	URL_Pass_Status_Update(PageURL,"B21","B", "C21", "C");
 			    	        	PageName=driver.findElement(SmartTicketEle).getText();
 			    	        	if(PageName.contains(SmartTicket_Text)) {
 			    	        		System.out.println("SmartTicket");
 			    	        	}
+			    	        }
+			    	        else
+			    	        {
+			    	        	URL_Fail_Status_Update(PageURL,"B21","C", "C21", "C");
 			    	        }
 	}
 	@Test(priority=2)
@@ -352,19 +538,27 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(WorkHere).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(WorkHere_url)) {
+        if (PageURL.contains(WorkHere_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B37","B", "C37", "C");
         	PageName=driver.findElement(WorkHereEle).getText();
         	if(PageName.contains(WorkHere_Text)) {
         		driver.findElement(WorkHere_ContactUs).click();
         		Thread.sleep(2000);
         		PageURL =driver.getCurrentUrl();
-                if (PageURL.contains(WorkHere_ContactUs_url)) {
+                if (PageURL.contains(WorkHere_ContactUs_url)) 
+                {
+                	URL_Pass_Status_Update(PageURL,"B22","B", "C22", "C");
                 	PageName=driver.findElement(WorkHere_ContactUsEle).getText();
                 	if(PageName.contains(WorkHere_ContactUs_Text)) {
                 		driver.navigate().back();
                 		Thread.sleep(2000);
                 	}
                 }
+                else
+    	        {
+    	        	URL_Fail_Status_Update(PageURL,"B22","C", "C22", "C");
+    	        }
         		driver.findElement(ApplyNow).click();
         		Thread.sleep(2000);
         		driver.navigate().back();
@@ -376,15 +570,25 @@ public class SmartData_App extends SmartData_Object
         		driver.findElement(Applynow2).click();
         		Thread.sleep(2000);
         		PageURL =driver.getCurrentUrl();
-                if (PageURL.contains(ApplyNow_url)) {
+                if (PageURL.contains(ApplyNow_url)) 
+                {
+                	URL_Pass_Status_Update(PageURL,"B23","B", "C23", "C");
                 	PageName=driver.findElement(ApplyNowEle).getText();
                 	if(PageName.contains(ApplyNow_Text)) {
                 		driver.navigate().back();
                 		Thread.sleep(2000);
                 	}
                 }
+                else
+    	        {
+    	        	URL_Fail_Status_Update(PageURL,"B23","C", "C23", "C");
+    	        }
         	
         	}
+        }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B37","C", "C37", "C");
         }
 	}
 	@Test(priority=3)
@@ -394,7 +598,9 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(Lunch_Learn).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(Lunch_Learn_url)) {
+        if (PageURL.contains(Lunch_Learn_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B24","B", "C24", "C");
         	PageName=driver.findElement(Lunch_LearnEle).getText();
         	if(PageName.contains(Lunch_Learn_Text)) {
         		driver.findElement(Event1).click();
@@ -429,6 +635,10 @@ public class SmartData_App extends SmartData_Object
   			        Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B24","C", "C24", "C");
+        }
         
 	}
 	@Test(priority=4)
@@ -438,7 +648,9 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(AboutUs).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(AboutUs_url)) {
+        if (PageURL.contains(AboutUs_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B25","B", "C25", "C");
         	PageName=driver.findElement(AboutUsEle).getText();
         	if(PageName.contains(AboutUs_Text)) {
         		driver.findElement(Ravi_Manchala).click();
@@ -507,6 +719,10 @@ public class SmartData_App extends SmartData_Object
         		
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B25","C", "C25", "C");
+        }
        
         JavascriptExecutor js = (JavascriptExecutor) driver;
 	        js.executeScript("window.scrollBy(0,1000)");
@@ -550,7 +766,9 @@ public class SmartData_App extends SmartData_Object
 			} else {
 				for (List row : values) {
 					 PageURL =driver.getCurrentUrl();
-				        if (PageURL.contains(contactus_url)) {
+				        if (PageURL.contains(contactus_url)) 
+				        {
+				        	URL_Pass_Status_Update(PageURL,"B26","B", "C26", "C");
 				        	PageName=driver.findElement(ContactusEle).getText();
 				        	if(PageName.contains(Contact_Us)) {
 				        		driver.switchTo().frame(FrameID);		
@@ -573,6 +791,10 @@ public class SmartData_App extends SmartData_Object
       			        Thread.sleep(2000);
       				}
       			}
+				        else
+				        {
+				        	URL_Fail_Status_Update(PageURL,"B26","B", "C26", "C");
+				        }
         	}
         }
 		
@@ -616,97 +838,162 @@ public class SmartData_App extends SmartData_Object
 		driver.findElement(CNBS).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(CNBS_url)) {
+        if (PageURL.contains(CNBS_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B27","B", "C27", "C");
         	PageName=driver.findElement(CNBSEle).getText();
         	if(PageName.contains(CNBS_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B27","C", "C27", "C");
+        }
         driver.findElement(AWS).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(AWS_url)) {
+        if (PageURL.contains(AWS_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B28","B", "C28", "C");
         	PageName=driver.findElement(AWSEle).getText();
         	if(PageName.contains(AWS_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B28","C", "C28", "C");
+        }
         driver.findElement(SalesForce_Company).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(SalesForce_Company_url)) {
+        if (PageURL.contains(SalesForce_Company_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B29","B", "C29", "C");
         	PageName=driver.findElement(SaleForce_CompanyEle).getText();
         	if(PageName.contains(SalesForce_Company_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B29","C", "C29", "C");
+        }
         driver.findElement(GoogleCloud).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(GoogleCloud_url)) {
+        if (PageURL.contains(GoogleCloud_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B30","B", "C30", "C");
         	PageName=driver.findElement(GoogleCloudEle).getText();
         	if(PageName.contains(GoogleCloud_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B30","C", "C30", "C");
+        }
         driver.findElement(Ascend).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(Ascend_url)) {
+        if (PageURL.contains(Ascend_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B31","B", "C31", "C");
         	PageName=driver.findElement(AscendEle).getText();
         	if(PageName.contains(Ascend_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B31","C", "C31", "C");
+        }
         driver.findElement(costrategix).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(costrategix_url)) {
+        if (PageURL.contains(costrategix_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B32","B", "C32", "C");
         	PageName=driver.findElement(costrategixEle).getText();
         	if(PageName.contains(costrategix_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B32","C", "C32", "C");
+        }
         driver.findElement(F1Studio).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(F1Studio_url)) {
+        if (PageURL.contains(F1Studio_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B33","B", "C33", "C");
         	PageName=driver.findElement(F1StudioEle).getText();
         	if(PageName.contains(F1Studio_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B33","C", "C33", "C");
+        }
         driver.findElement(keptraining).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(keptraining_url)) {
+        if (PageURL.contains(keptraining_url)) 
+        {
+        	URL_Fail_Status_Update(PageURL,"B34","C", "C34", "C");
         	PageName=driver.findElement(keptrainingEle).getText();
         	if(PageName.contains(keptraining_Text)) {
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
-        driver.findElement(zendesk).click();
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B34","C", "C34", "C");
+        }
+        try 
+        {
+        	 driver.findElement(zendesk).click();
+		} 
+        catch (Exception e)
+        {
+        	System.out.println(e.getLocalizedMessage());
+        	System.out.println(e.getMessage());
+		}
+       
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(zendesk_url)) {
+        if (PageURL.contains(zendesk_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B35","B", "C35", "C");
         	PageName=driver.findElement(zendeskEle).getText();
         	if(PageName.contains(zendesk_Text)) {
         		driver.navigate().back();
-        		Thread.sleep(2000);
+        		Thread.sleep(5000);
         	}
+        }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B35","C", "C35", "C");
         }
         driver.findElement(Blogs).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
-        if (PageURL.contains(Blogs_url)) {
+        if (PageURL.contains(Blogs_url)) 
+        {
+        	URL_Pass_Status_Update(PageURL,"B36","B", "C36", "C");
         	PageName=driver.findElement(BlogsEle).getText();
         	if(PageName.contains(Blogs_Text)) {
         		driver.findElement(Blog1).click();
@@ -742,6 +1029,10 @@ public class SmartData_App extends SmartData_Object
 				JavascriptExecutor js3 = (JavascriptExecutor) driver;
 				js3.executeScript("arguments[0].click();", NextEntries);
         	}
+        }
+        else
+        {
+        	URL_Fail_Status_Update(PageURL,"B36","C", "C36", "C");
         }
 	}
 	
