@@ -26,7 +26,7 @@ import com.google.api.services.sheets.v4.model.BatchUpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 public class SheetsQuickstart {
-	private static final String APPLICATION_NAME = "SmartTicketUpgrade";
+	private static final String APPLICATION_NAME = "SmartTicketUpgrade"; // Smart Data
 	private static final java.io.File DATA_STORE_DIR = new java.io.File(
 			System.getProperty("user.home"),
 			".credentials/sheets.googleapis.com-java-quickstart.json");
@@ -63,7 +63,7 @@ public class SheetsQuickstart {
 	private static GoogleClientSecrets getClientSecret() throws IOException
 	{	
 				InputStream in = SheetsQuickstart.class
-						.getResourceAsStream("D:\\Credentials\\client_secret.json");
+						.getResourceAsStream("C:\\Credentials\\client_secret.json");
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(
 				JSON_FACTORY, new InputStreamReader(in));
 		return clientSecrets;

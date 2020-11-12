@@ -53,7 +53,7 @@ public class SmartData_Object
 	public By SalesforceCloudEle = By.xpath(".//*[@class='et_pb_text_inner']/h1");
 	public By Salesforce_ReadMore = By.xpath("(//a[contains(@href, 'https://www.smartdata.net/hybrid-model-case-study/')])[2]");
 	public String Salesforce_ReadMore_url = "https://www.smartdata.net/hybrid-model-case-study/";
-	public String  Salesforce_ReadMore_Text = "Case Study – Hybrid Model";
+	public String  Salesforce_ReadMore_Text = "Case Study ï¿½ Hybrid Model";
 	public By Salesforce_ReadMoreEle = By.xpath(".//*[@class='et_pb_text_inner']/h1");
 	
 	public By Staffing = By.xpath("(//a[contains(text(),'Staffing Solutions')])[3]");
@@ -149,8 +149,8 @@ public class SmartData_Object
 	public By Name = By.id("et_pb_contact_name_0");
 	public By Lunch_Email = By.id("et_pb_contact_email_0");
 	public By Lunch_Message = By.id("et_pb_contact_message_0");
-	public By OldEntries = By.xpath("//a[contains(text(),'« Older Entries')]");
-	public By NextEntries = By.xpath("//a[contains(text(),'Next Entries »')]");
+	public By OldEntries = By.xpath("//a[contains(text(),'ï¿½ Older Entries')]");
+	public By NextEntries = By.xpath("//a[contains(text(),'Next Entries ï¿½')]");
 	
 	public By AboutUs = By.linkText("ABOUT US");
 	public String AboutUs_url ="https://www.smartdata.net/about-us/";
@@ -220,7 +220,7 @@ public class SmartData_Object
 	public By F1StudioEle = By.xpath(".//*[@class='primaryBtnLink']");
 	public By keptraining = By.xpath("//span[contains(.,'Keptraining')]");
 	public String keptraining_url = "https://keptraining.com/";
-	public String keptraining_Text ="Knowledge – Education – Performance";
+	public String keptraining_Text ="Knowledge ï¿½ Education ï¿½ Performance";
 	public By keptrainingEle = By.xpath(".//*[@class='et_pb_text_inner']/h1");
 	public By zendesk = By.xpath("//div[4]/div[3]/div/div/div[2]/h4/span");
 	public String zendesk_url="https://www.zendesk.com/";
@@ -236,8 +236,8 @@ public class SmartData_Object
 	public By Blog4 = By.xpath("//div[2]/article[2]/h2/a");
 	public By Blog5 = By.xpath("//div[1]/article[3]/h2/a");
 	public By Blog6 = By.xpath("//div[2]/article[3]/h2/a");
-	public By Older_Entries = By.xpath("//a[contains(text(),'« Older Entries')]");
-	public By Next_Entries = By.xpath("//a[contains(text(),'Next Entries »')]");
+	public By Older_Entries = By.xpath("//a[contains(text(),'ï¿½ Older Entries')]");
+	public By Next_Entries = By.xpath("//a[contains(text(),'Next Entries ï¿½')]");
 	
 	
 }
