@@ -61,7 +61,8 @@ public class SmartData_Object
 	public String Staffing_Text = "Staffing";
 	public By  StaffingEle = By.xpath(".//*[@class='et_pb_text_inner']/h1");
 	public By letstalk = By.xpath("(//a[contains(@href, 'https://www.smartdata.net/contact-us/')])[7]");
-	public By Staffing_ReadMore = By.xpath(".//a[contains(text(),'Read mORE')]");
+	public By Staffing_ReadMore = By.xpath("//*[@class=\"et_pb_button et_pb_button_1 et_hover_enabled et_pb_bg_layout_light\"]");
+	//public By Staffing_ReadMore = By.xpath(".//a[contains(text(),'Read mORE')]");
 	
 	public By AgileConsulting = By.xpath("(//a[contains(text(),'Dev-Ops/Agile Consulting')])[3]");
 	public String AgileConsulting_url = "https://www.smartdata.net/agile/";
@@ -149,8 +150,8 @@ public class SmartData_Object
 	public By Name = By.id("et_pb_contact_name_0");
 	public By Lunch_Email = By.id("et_pb_contact_email_0");
 	public By Lunch_Message = By.id("et_pb_contact_message_0");
-	public By OldEntries = By.xpath("//a[contains(text(),'� Older Entries')]");
-	public By NextEntries = By.xpath("//a[contains(text(),'Next Entries �')]");
+	public By OldEntries = By.xpath("//a[contains(text(),'« Older Entries')]");
+	public By NextEntries = By.xpath("//a[contains(text(),'Next Entries »')]");
 	
 	public By AboutUs = By.linkText("ABOUT US");
 	public String AboutUs_url ="https://www.smartdata.net/about-us/";
@@ -220,7 +221,7 @@ public class SmartData_Object
 	public By F1StudioEle = By.xpath(".//*[@class='primaryBtnLink']");
 	public By keptraining = By.xpath("//span[contains(.,'Keptraining')]");
 	public String keptraining_url = "https://keptraining.com/";
-	public String keptraining_Text ="Knowledge � Education � Performance";
+	public String keptraining_Text ="Knowledge – Education – Performance";
 	public By keptrainingEle = By.xpath(".//*[@class='et_pb_text_inner']/h1");
 	public By zendesk = By.xpath("//div[4]/div[3]/div/div/div[2]/h4/span");
 	public String zendesk_url="https://www.zendesk.com/";
@@ -236,8 +237,8 @@ public class SmartData_Object
 	public By Blog4 = By.xpath("//div[2]/article[2]/h2/a");
 	public By Blog5 = By.xpath("//div[1]/article[3]/h2/a");
 	public By Blog6 = By.xpath("//div[2]/article[3]/h2/a");
-	public By Older_Entries = By.xpath("//a[contains(text(),'� Older Entries')]");
-	public By Next_Entries = By.xpath("//a[contains(text(),'Next Entries �')]");
+	public By Older_Entries = By.xpath("//a[contains(text(),'« Older Entries')]");
+	public By Next_Entries = By.xpath("//a[contains(text(),'Next Entries »')]");
 	
 	
 }

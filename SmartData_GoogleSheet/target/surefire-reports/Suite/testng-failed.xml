@@ -7,13 +7,8 @@
         <methods>
           <include name="Driver_Int"/>
           <include name="Driver_Close"/>
-          <include name="WhatWeDo"/>
-          <include name="smartData_lunchLearn"/>
-          <include name="SmartData_Whoweare"/>
-          <include name="smartData_AboutUs"/>
-          <include name="SmartData_ContactUs"/>
+          <include name="SmartData_lunchLearn"/>
           <include name="SmartData_Footer"/>
-          <include name="SmartData_WorkHere"/>
         </methods>
       </class> <!-- SmartData_Appilcation.SmartData_App -->
     </classes>
