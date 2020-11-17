@@ -8,6 +8,8 @@ package SmartData_GoogleSheet;
 	import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 	import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 	import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+	import com.google.api.*;
+	import java.awt.color.*;
     import com.google.api.client.http.HttpTransport;
     import com.google.api.client.http.javanet.NetHttpTransport;
 	import com.google.api.client.json.JsonFactory;
@@ -20,6 +22,8 @@ import com.google.api.services.sheets.v4.model.BatchUpdateValuesRequest;
 	import com.google.api.services.sheets.v4.model.BatchUpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.CellData;
 import com.google.api.services.sheets.v4.model.CellFormat;
+import com.google.api.services.sheets.v4.model.ClearValuesRequest;
+import com.google.api.services.sheets.v4.model.ClearValuesResponse;
 import com.google.api.services.sheets.v4.model.Color;
 import com.google.api.services.sheets.v4.model.GridRange;
 import com.google.api.services.sheets.v4.model.Request;
@@ -134,6 +138,22 @@ public class TestGoogleSheet
 	    //credential.refreshToken();
 		return new Sheets.Builder(httpTransport, jsonFactory, credential).setApplicationName(APPLICATION_NAME).build();
 	}
+	  public static void ClearDataInSheet(String SheetID, String rangeValue) throws IOException, GeneralSecurityException 
+	  {
+		    
+		    String spreadsheetId = SheetID;
+		    String range = rangeValue; 
+		    ClearValuesRequest requestBody = new ClearValuesRequest();
+		    Sheets sheetsService = createSheetsService();
+		    Sheets.Spreadsheets.Values.Clear request =
+		        sheetsService.spreadsheets().values().clear(spreadsheetId, range, requestBody);
+
+		    ClearValuesResponse response = request.execute();
+
+		    // TODO: Change code below to process the `response` object:
+		    //System.out.println(response);
+		 }
+	 
 	public static String RepeateCellRequest() throws IOException, GeneralSecurityException 
 	{
 		List<Request> requestList = new ArrayList<>();

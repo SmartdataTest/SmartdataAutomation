@@ -47,6 +47,9 @@ public class SmartData_App extends SmartData_Object
 	 String PageURL = null;
 	 ArrayList tabs;
 	 SheetsExample updateValues;
+	 
+	 TakeScreenshot ScreenShot = new TakeScreenshot();
+	 
 	 List<List<Object>> URL = new ArrayList<>();
 	 List<Object> CurrentURL = new ArrayList<>();
 	
@@ -75,41 +78,31 @@ public class SmartData_App extends SmartData_Object
 	{
 		String URLUpdate = URLRowValue+":"+URLCellValue;
 		String StatusUpdate=StatuRow+":"+StatuCell;
-		//System.out.println(URLUpdate);
-		//System.out.println(StatusUpdate);
-		
 		CurrentURL.add(PageURL1);
 	    URL.add(CurrentURL);
 	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+URLUpdate, URL);
 	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+StatusUpdate, Pass);
 	    CurrentURL.remove(PageURL1);
 	    URL.remove(CurrentURL);
-	    //System.out.println(CurrentURL.isEmpty());
-	    //System.out.println(URL.isEmpty());
 	    
 	}
 	public void URL_Fail_Status_Update(String PageURL1,String URLRowValue,String URLCellValue,String StatuRow,String StatuCell) throws IOException, GeneralSecurityException
 	{
 		String URLUpdate = URLRowValue+":"+URLCellValue;
 		String StatusUpdate=StatuRow+":"+StatuCell;
-		//System.out.println(URLUpdate);
-		//System.out.println(StatusUpdate);
-		
 		CurrentURL.add(PageURL1);
 	    URL.add(CurrentURL);
 	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+URLUpdate, URL);
 	    TestGoogleSheet.writeValuesIntoSpreadsheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!"+StatusUpdate,Fail);
 	    CurrentURL.remove(PageURL1);
 	    URL.remove(CurrentURL);
-	    //System.out.println(CurrentURL.isEmpty());
-	    //System.out.println(URL.isEmpty());
-	    
 	}
 	@Test(priority=0)
 	public void SmartData_Whoweare()throws Exception
 	{
-		//ValueRange requestBody = new ValueRange();
-	    //TestGoogleSheet.RepeateCellRequest();
+		TestGoogleSheet.ClearDataInSheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!B2:B");
+		TestGoogleSheet.ClearDataInSheet("1WcD-vJXI2z4wZ9TQ1tHiT8cmmrKgD8v3cqKB-cPctRo", "SmartData!C2:B");
+		
 		driver.get(url); 
 		Thread.sleep(2000);
 		driver.findElement(MainMenu).click();
@@ -120,6 +113,7 @@ public class SmartData_App extends SmartData_Object
         if (PageURL.contains(WhoWeAreURL)) 
         {
         	URL_Pass_Status_Update(PageURL,"B2","B", "C2", "C");
+        	
     		//TestGoogleSheet.RepeateCellRequest();
         	PageName=driver.findElement(WhoWeAreEle).getText();
         	if(PageName.contains(WhoWeAreText)) 
@@ -140,6 +134,7 @@ public class SmartData_App extends SmartData_Object
 		        }
 		        else
 		        {
+		        	ScreenShot.getscreenshot(driver, "Contact US");
 		        	URL_Fail_Status_Update(PageURL,"B3","C", "C3", "C");
 		        }
         		driver.findElement(JobOpening).click();
@@ -148,6 +143,7 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Who We Are URL");
         	URL_Fail_Status_Update(PageURL,"B2","C", "C2", "C");
         }
 	}
@@ -162,7 +158,7 @@ public class SmartData_App extends SmartData_Object
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
         if (PageURL.contains(DigitalTransformation_url)) 
-        {
+        {        	
         	URL_Pass_Status_Update(PageURL,"B4","B", "C4", "C");
         	PageName=driver.findElement(DigitalTransformationEle).getText();
         	if(PageName.contains(DigitalTransformation_Text)) 
@@ -185,6 +181,7 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Digital Transformation");
         	URL_Fail_Status_Update(PageURL,"B4","C", "C4", "C");
         }
         driver.findElement(MainMenu).click();
@@ -205,6 +202,7 @@ public class SmartData_App extends SmartData_Object
 	        }
 	        else
 	        {
+	        	ScreenShot.getscreenshot(driver, "Enterprise");
 	        	URL_Fail_Status_Update(PageURL,"B5","C", "C5", "C");
 	        }
 	        driver.findElement(MainMenu).click();
@@ -227,6 +225,7 @@ public class SmartData_App extends SmartData_Object
 	        }
 	        else
 	        {
+	        	ScreenShot.getscreenshot(driver, "Sales forec Devlopment");
 	        	URL_Fail_Status_Update(PageURL,"B6","C", "C6", "C");
 	        }
 	        		driver.findElement(Salesforcecertification).click();
@@ -244,6 +243,7 @@ public class SmartData_App extends SmartData_Object
 	    	        }
 	    	        else
 	    	        {
+	    	        	ScreenShot.getscreenshot(driver, "Sales force Certification");
 	    	        	URL_Fail_Status_Update(PageURL,"B7","C", "C7", "C");
 	    	        }
 	        		driver.findElement(Salesforce_sales_Cloud).click();
@@ -260,6 +260,7 @@ public class SmartData_App extends SmartData_Object
 	    	        }
 	    	        else
 	    	        {
+	    	        	ScreenShot.getscreenshot(driver, "Sales force Cloud");
 	    	        	URL_Fail_Status_Update(PageURL,"B8","C", "C8", "C");
 	    	        }
 	    	        driver.findElement(Salesforce_ReadMore).click();
@@ -275,6 +276,7 @@ public class SmartData_App extends SmartData_Object
 	    	        }
 	    	        else
 	    	        {
+	    	        	ScreenShot.getscreenshot(driver, "Sales force ReadMore");
 	    	        	URL_Fail_Status_Update(PageURL,"B9","C", "C9", "C");
 	    	        }
 	    	        driver.findElement(MainMenu).click();
@@ -286,6 +288,7 @@ public class SmartData_App extends SmartData_Object
 	    	        PageURL =driver.getCurrentUrl();
 	    	        if (PageURL.contains(Staffing_url)) 
 	    	        {
+	    	        	
 	    	        	URL_Pass_Status_Update(PageURL,"B10","B", "C10", "C");
 	    	        	PageName=driver.findElement(StaffingEle).getText();
 	    	        	if(PageName.contains(Staffing_Text)) 
@@ -300,6 +303,7 @@ public class SmartData_App extends SmartData_Object
 	    	        }
 	    	        else
 	    	        {
+	    	        	ScreenShot.getscreenshot(driver, "Staffing");
 	    	        	URL_Fail_Status_Update(PageURL,"B10","C", "C10", "C");
 	    	        }
 	    	        driver.findElement(MainMenu).click();
@@ -319,6 +323,7 @@ public class SmartData_App extends SmartData_Object
 		    	        }
 		    	        else
 		    	        {
+		    	        	ScreenShot.getscreenshot(driver, "Agile Consulting");
 		    	        	URL_Fail_Status_Update(PageURL,"B11","C", "C11", "C");
 		    	        }
 		    	        driver.findElement(MainMenu).click();
@@ -338,6 +343,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "Data Science");
 			    	        	URL_Fail_Status_Update(PageURL,"B12","C", "C12", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
@@ -357,6 +363,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "Automation");
 			    	        	URL_Fail_Status_Update(PageURL,"B13","C", "C13", "C");
 			    	        }
 			    	        
@@ -388,6 +395,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "OffShore");
 			    	        	URL_Fail_Status_Update(PageURL,"B14","C", "C14", "C");
 			    	        }
 			    	        
@@ -411,6 +419,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "HealthCare");
 			    	        	URL_Fail_Status_Update(PageURL,"B15","C", "C15", "C");
 			    	        }
 			    	        
@@ -431,6 +440,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "Retail");
 			    	        	URL_Fail_Status_Update(PageURL,"B16","C", "C16", "C");
 			    	        }
 			    	        
@@ -451,6 +461,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "Manufacturing");
 			    	        	URL_Fail_Status_Update(PageURL,"B17","C", "C17", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
@@ -470,6 +481,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "Insurance");
 			    	        	URL_Fail_Status_Update(PageURL,"B18","C", "C18", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
@@ -489,6 +501,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "BeyondPod");
 			    	        	URL_Fail_Status_Update(PageURL,"B19","C", "C19", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
@@ -509,6 +522,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "SBN");
 			    	        	URL_Fail_Status_Update(PageURL,"B20","C", "C20", "C");
 			    	        }
 			    	        driver.findElement(MainMenu).click();
@@ -528,6 +542,7 @@ public class SmartData_App extends SmartData_Object
 			    	        }
 			    	        else
 			    	        {
+			    	        	ScreenShot.getscreenshot(driver, "SmartTicket");
 			    	        	URL_Fail_Status_Update(PageURL,"B21","C", "C21", "C");
 			    	        }
 	}
@@ -557,6 +572,7 @@ public class SmartData_App extends SmartData_Object
                 }
                 else
     	        {
+                	ScreenShot.getscreenshot(driver, "Work Here Contact Us");
     	        	URL_Fail_Status_Update(PageURL,"B22","C", "C22", "C");
     	        }
         		driver.findElement(ApplyNow).click();
@@ -581,6 +597,7 @@ public class SmartData_App extends SmartData_Object
                 }
                 else
     	        {
+                	ScreenShot.getscreenshot(driver, "ApplyNow");
     	        	URL_Fail_Status_Update(PageURL,"B23","C", "C23", "C");
     	        }
         	
@@ -588,11 +605,12 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Work Hear");
         	URL_Fail_Status_Update(PageURL,"B37","C", "C37", "C");
         }
 	}
 	@Test(priority=3)
-	public void smartData_lunchLearn()throws Exception{
+	public void SmartData_lunchLearn()throws Exception{
 		driver.findElement(MainMenu).click();
 		Thread.sleep(2000);
 		driver.findElement(Lunch_Learn).click();
@@ -637,6 +655,7 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Lunch_Learn");
         	URL_Fail_Status_Update(PageURL,"B24","C", "C24", "C");
         }
         
@@ -721,6 +740,7 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "AboutUs");
         	URL_Fail_Status_Update(PageURL,"B25","C", "C25", "C");
         }
        
@@ -752,9 +772,9 @@ public class SmartData_App extends SmartData_Object
 				}
 	}
 	@Test(priority=5)
-	public void SmartData_ContactUs() throws  Exception {
+	public void SmartData_ContactUs() throws  Exception 
+	{
 		driver.navigate().refresh();
-
 		driver.findElement(MainMenu).click();
 		Thread.sleep(2000);
 		driver.findElement(ContactUs).click();
@@ -793,6 +813,7 @@ public class SmartData_App extends SmartData_Object
       			}
 				        else
 				        {
+				        	ScreenShot.getscreenshot(driver, "Contact Us");
 				        	URL_Fail_Status_Update(PageURL,"B26","B", "C26", "C");
 				        }
         	}
@@ -800,7 +821,8 @@ public class SmartData_App extends SmartData_Object
 		
 	}
 	@Test(priority=6)
-	public void SmartData_Footer()throws Exception{
+	public void SmartData_Footer()throws Exception
+	{
 		driver.findElement(Healthcare).click();
 		Thread.sleep(2000);
 		driver.navigate().back();
@@ -835,6 +857,7 @@ public class SmartData_App extends SmartData_Object
 		Thread.sleep(2000);
 		driver.findElement(partner).click();
 		Thread.sleep(2000);
+		Page_Scroll_Down("250");
 		driver.findElement(CNBS).click();
 		Thread.sleep(2000);
 		PageURL =driver.getCurrentUrl();
@@ -849,13 +872,25 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "CNBS");
         	URL_Fail_Status_Update(PageURL,"B27","C", "C27", "C");
         }
-        driver.findElement(AWS).click();
+        try 
+        {
+        	Page_Scroll_Down("250");
+        	 driver.findElement(AWS).click();
+		}
+        catch (Exception e)
+        {
+        	System.out.println(e.getLocalizedMessage());
+        	System.out.println(e.getMessage());
+        }
+     
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
         if (PageURL.contains(AWS_url)) 
         {
+        	
         	URL_Pass_Status_Update(PageURL,"B28","B", "C28", "C");
         	PageName=driver.findElement(AWSEle).getText();
         	if(PageName.contains(AWS_Text)) {
@@ -865,8 +900,10 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "AWS");
         	URL_Fail_Status_Update(PageURL,"B28","C", "C28", "C");
         }
+        Page_Scroll_Down("250");
         driver.findElement(SalesForce_Company).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
@@ -881,9 +918,21 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Sales Force Company");
         	URL_Fail_Status_Update(PageURL,"B29","C", "C29", "C");
         }
-        driver.findElement(GoogleCloud).click();
+        try
+        {
+        	Page_Scroll_Down("100");
+        	 driver.findElement(GoogleCloud).click();
+		}
+        catch (Exception e) 
+        {
+			System.out.println(e.getLocalizedMessage());
+			System.out.println(e.getMessage());
+			
+		}
+       
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
         if (PageURL.contains(GoogleCloud_url)) 
@@ -897,8 +946,10 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Google Cloud");
         	URL_Fail_Status_Update(PageURL,"B30","C", "C30", "C");
         }
+        Page_Scroll_Down("100");
         driver.findElement(Ascend).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
@@ -913,8 +964,10 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Ascend");
         	URL_Fail_Status_Update(PageURL,"B31","C", "C31", "C");
         }
+        Page_Scroll_Down("100");    
         driver.findElement(costrategix).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
@@ -929,8 +982,10 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Costrategix");
         	URL_Fail_Status_Update(PageURL,"B32","C", "C32", "C");
         }
+        Page_Scroll_Down("100");
         driver.findElement(F1Studio).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
@@ -938,33 +993,39 @@ public class SmartData_App extends SmartData_Object
         {
         	URL_Pass_Status_Update(PageURL,"B33","B", "C33", "C");
         	PageName=driver.findElement(F1StudioEle).getText();
-        	if(PageName.contains(F1Studio_Text)) {
+        	if(PageName.contains(F1Studio_Text)) 
+        	{
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "F1 Studio");
         	URL_Fail_Status_Update(PageURL,"B33","C", "C33", "C");
         }
+        Page_Scroll_Down("100");
         driver.findElement(keptraining).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
         if (PageURL.contains(keptraining_url)) 
         {
-        	URL_Fail_Status_Update(PageURL,"B34","C", "C34", "C");
+        	URL_Pass_Status_Update(PageURL,"B34","C", "C34", "C");
         	PageName=driver.findElement(keptrainingEle).getText();
-        	if(PageName.contains(keptraining_Text)) {
+        	if(PageName.contains(keptraining_Text)) 
+        	{
         		driver.navigate().back();
         		Thread.sleep(2000);
         	}
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Keptraining");
         	URL_Fail_Status_Update(PageURL,"B34","C", "C34", "C");
         }
         try 
         {
+        	Page_Scroll_Down("100");
         	 driver.findElement(zendesk).click();
 		} 
         catch (Exception e)
@@ -986,8 +1047,10 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Zendesk");
         	URL_Fail_Status_Update(PageURL,"B35","C", "C35", "C");
         }
+        Page_Scroll_Down("100");
         driver.findElement(Blogs).click();
         Thread.sleep(2000);
         PageURL =driver.getCurrentUrl();
@@ -996,6 +1059,7 @@ public class SmartData_App extends SmartData_Object
         	URL_Pass_Status_Update(PageURL,"B36","B", "C36", "C");
         	PageName=driver.findElement(BlogsEle).getText();
         	if(PageName.contains(Blogs_Text)) {
+        		
         		driver.findElement(Blog1).click();
         		Thread.sleep(2000);
         		driver.navigate().back();
@@ -1032,8 +1096,14 @@ public class SmartData_App extends SmartData_Object
         }
         else
         {
+        	ScreenShot.getscreenshot(driver, "Blogs");	
         	URL_Fail_Status_Update(PageURL,"B36","C", "C36", "C");
         }
+	}
+	public void Page_Scroll_Down(String Value)
+	{
+		JavascriptExecutor jse = (JavascriptExecutor)driver;
+		jse.executeScript("window.scrollBy(0,"+Value+")");
 	}
 	
 	@AfterSuite
